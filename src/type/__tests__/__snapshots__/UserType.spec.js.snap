@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should get an user 1`] = `
+Object {
+  "data": Object {
+    "user": Object {
+      "_id": "ObjectId",
+      "name": "user",
+    },
+  },
+}
+`;
+
+exports[`should get an user 2`] = `
+Object {
+  "data": Object {
+    "user": Object {
+      "_id": "ObjectId",
+      "conversations": Array [
+        Object {
+          "_id": "ObjectId",
+          "name": "ok",
+        },
+      ],
+      "name": "user",
+    },
+  },
+}
+`;
