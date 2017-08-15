@@ -1,7 +1,4 @@
 /* @flow */
-
-// @flow
-// import 'isomorphic-fetch';
 import Koa from 'koa';
 import Router from 'koa-router';
 import graphqlHTTP from 'koa-graphql';
@@ -22,7 +19,7 @@ router.all(
     graphqlHTTP(async (req, ctx) => {
       const { user } = await getUser(req.header.authorization);
 
-      console.log('loggedUser: ', user);
+      // const user = await User.findOne({_id: '5992ef7c5c82203d3f1adfae'});
 
       return {
         graphiql: true,
@@ -31,16 +28,16 @@ router.all(
          user
         },
         extensions: ({ document, variables, operationName, result }) => {
-          if (process.env.NODE_ENV === 'development') {
-            console.log(print(document));
-            console.log(variables);
-            console.log(result);
-          }
+          // console.log(print(document));
+          // console.log(variables);
+          // console.log(result);
         },
         formatError: error => {
           console.log(error.message);
           console.log(error.locations);
           console.log(error.stack);
+
+          // log to server
 
           return {
             message: error.message,

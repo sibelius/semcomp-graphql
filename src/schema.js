@@ -3,37 +3,18 @@ import {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLBoolean, GraphQLNonNull, GraphQLID,
+  GraphQLNonNull,
+  GraphQLID,
   GraphQLList,
 } from 'graphql';
-import User from './model/User';
+import {
+  User,
+} from './model';
+import Conversation from './model/Conversation';
 
 import MutationType from './MutationType';
-
-const UserType = new GraphQLObjectType({
-  name: 'User',
-  description: 'an user',
-  fields: () => ({
-    _id: {
-      type: GraphQLString,
-      resolve: user => user._id,
-    },
-    name: {
-      type: GraphQLString,
-      resolve: user => user.name,
-    },
-    email: {
-      type: GraphQLString,
-      resolve: (user, args, context) => {
-        user.email
-      },
-    },
-    active: {
-      type: GraphQLBoolean,
-      resolve: user => user.active,
-    },
-  }),
-});
+import UserType from './type/UserType';
+import ConversationType from './type/ConversationType';
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -57,7 +38,7 @@ const QueryType = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: (root, args, context) => {
+      resolve: async (root, args, context) => {
         return User.findOne({
           _id: args.id,
         });
@@ -67,6 +48,12 @@ const QueryType = new GraphQLObjectType({
       type: new GraphQLList(UserType),
       resolve: async (_,  args, context) => {
         return User.find({});
+      },
+    },
+    conversations: {
+      type: new GraphQLList(ConversationType),
+      resolve: async (_, args, context) => {
+        return Conversation.find({});
       },
     },
   }),

@@ -1,7 +1,10 @@
 /* @flow */
 import 'babel-polyfill';
+import mongoose from 'mongoose';
 import app from './app';
 import connectDatabase from './database';
+
+mongoose.set('debug', true);
 
 const PORT = 5400;
 
